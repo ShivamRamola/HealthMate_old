@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Appointment</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      padding: 2rem;
+      margin: 0;
+    }
+    .appointment-container {
+      max-width: 500px;
+      background: white;
+      padding: 2rem;
+      margin: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    .doctor-info {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .doctor-info img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      background: #007bff;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="appointment-container">
+    <div class="doctor-info" id="doctorInfo"></div>
+
+    <form onsubmit="submitAppointment(event)">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <select required>
+        <option value="">Select Time Slot</option>
+        <option>12:00 PM – 1:00 PM</option>
+        <option>1:00 PM – 2:00 PM</option>
+        <option>2:00 PM – 3:00 PM</option>
+        <option>3:00 PM – 4:00 PM</option>
+      </select>
+      <textarea placeholder="Describe your issue" rows="3" required></textarea>
+      <button type="submit">Confirm Appointment</button>
+    </form>
+  </div>
+
+  <script>
+    const doctors = [
+      { id: 1, name: "Dr. A Sharma", image: "assets/doctors/a-sharma.jpg" },
+      { id: 2, name: "Dr. B Mehta", image: "assets/doctors/b-mehta.jpg" },
+      { id: 3, name: "Dr. C Verma", image: "assets/doctors/c-verma.jpg" },
+      { id: 4, name: "Dr. Nisha Mehta", image: "assets/doctors/nisha-mehta.jpg" },
+      { id: 5, name: "Dr. Rakesh Iyer", image: "assets/doctors/rakesh-iyer.jpg" },
+      { id: 6, name: "Dr. Priya Desai", image: "assets/doctors/priya-desai.jpg" },
+      { id: 7, name: "Dr. Manish Patel", image: "assets/doctors/manish-patel.jpg" },
+      { id: 8, name: "Dr. Anjali Kapoor", image: "assets/doctors/anjali-kapoor.jpg" },
+      { id: 9, name: "Dr. Vishal Rao", image: "assets/doctors/vishal-rao.jpg" }
+    ];
+
+    function getDoctorIdFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return parseInt(params.get("doctor"));
+    }
+
+    function displayDoctor() {
+      const id = getDoctorIdFromURL();
+      const doctor = doctors.find(d => d.id === id);
+      if (doctor) {
+        document.getElementById("doctorInfo").innerHTML = `
+          <img src="${doctor.image}" alt="${doctor.name}" />
+          <h2>${doctor.name}</h2>
+        `;
+      } else {
+        document.getElementById("doctorInfo").innerHTML = "<p>Doctor not found</p>";
+      }
+    }
+
+    function submitAppointment(event) {
+      event.preventDefault();
+      alert("Appointment booked successfully!");
+      window.location.href = "dashboard.html";
+    }
+
+    window.onload = displayDoctor;
+  </script>
+</body>
+</html>

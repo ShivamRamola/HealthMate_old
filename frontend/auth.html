@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HealthMate - Auth</title>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js"></script>
+  <style>
+    :root {
+      --bg-light: #f0f4f8;
+      --bg-dark: #1e1e2f;
+      --text-light: #333;
+      --text-dark: #fff;
+      --card-light: #fff;
+      --card-dark: #2c2c3e;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.4s ease, color 0.4s ease;
+      min-height: 100vh;
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .navbar {
+      background-color: #0077b6;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      animation: slideDown 0.6s ease-in-out;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .mode-toggle {
+      font-size: 1.2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
+    }
+
+    .auth-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      flex: 1;
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .tab-buttons button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: #ccc;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .tab-buttons .active {
+      background: #0077b6;
+      color: white;
+    }
+
+    .auth-form {
+      background: var(--card-light);
+      border-radius: 10px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s;
+    }
+
+    body.dark-mode .auth-form {
+      background: var(--card-dark);
+    }
+
+    .auth-form.active {
+      display: flex;
+    }
+
+    .auth-form input {
+      padding: 0.75rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .auth-form button {
+      padding: 0.75rem;
+      border: none;
+      background: #0077b6;
+      color: white;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .google-btn {
+      background: #db4437;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #0077b6;
+      color: white;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">🩺 HealthMate</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="dashboard.html">Dashboard</a>
+      <button class="mode-toggle" onclick="toggleMode()">🌙</button>
+    </div>
+  </div>
+
+  <!-- Auth Content -->
+  <div class="auth-container">
+    <div class="tab-buttons">
+      <button id="loginTab" class="active">Login</button>
+      <button id="signupTab">Signup</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" class="auth-form active">
+      <input type="email" id="loginEmail" placeholder="Email" required />
+      <div class="password-wrapper">
+        <input type="password" id="loginPassword" placeholder="Password" required />
+        <span class="toggle-password" onclick="togglePassword('loginPassword', this)">👁️</span>
+      </div>
+      <button type="submit">Login</button>
+      <button type="button" class="google-btn" onclick="googleSignIn()">Sign in with Google</button>
+    </form>
+
+    <!-- Signup Form -->
+    <form id="signupForm" class="auth-form">
+      <input type="email" id="signupEmail" placeholder="Email" required />
+      <div class="password-wrapper">
+        <input type="password" id="signupPassword" placeholder="Password" required />
+        <span class="toggle-password" onclick="togglePassword('signupPassword', this)">👁️</span>
+      </div>
+      <button type="submit">Signup</button>
+      <button type="button" class="google-btn" onclick="googleSignIn()">Sign up with Google</button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 HealthMate. All rights reserved.
+  </footer>
+
+  <!-- Firebase Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAg50rti6abDSWQDQ3_pycvTfsZAl-kpF0",
+      authDomain: "healthmate-c8c57.firebaseapp.com",
+      projectId: "healthmate-c8c57",
+      storageBucket: "healthmate-c8c57.firebasestorage.app",
+      messagingSenderId: "598997529149",
+      appId: "1:598997529149:web:9dec330ff23ca99c86b054"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    // Toggle tabs
+    const loginTab = document.getElementById("loginTab");
+    const signupTab = document.getElementById("signupTab");
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+
+    loginTab.onclick = () => {
+      loginForm.classList.add("active");
+      signupForm.classList.remove("active");
+      loginTab.classList.add("active");
+      signupTab.classList.remove("active");
+    };
+
+    signupTab.onclick = () => {
+      signupForm.classList.add("active");
+      loginForm.classList.remove("active");
+      signupTab.classList.add("active");
+      loginTab.classList.remove("active");
+    };
+
+    // Email/Password Signup
+    signupForm.onsubmit = (e) => {
+      e.preventDefault();
+      const email = document.getElementById("signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => alert("Signup successful!"))
+        .catch(err => alert(err.message));
+    };
+
+    // Email/Password Login
+    loginForm.onsubmit = (e) => {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          alert("Login successful!");
+          window.location.href = "dashboard.html";
+        })
+        .catch(err => alert(err.message));
+    };
+
+    // Google Sign In
+    window.googleSignIn = () => {
+      signInWithPopup(auth, provider)
+        .then(() => {
+          alert("Google sign-in successful!");
+          window.location.href = "dashboard.html";
+        })
+        .catch(err => alert(err.message));
+    };
+  </script>
+
+  <!-- Password toggle + dark mode toggle -->
+  <script>
+    function togglePassword(fieldId, icon) {
+      const input = document.getElementById(fieldId);
+      if (input.type === "password") {
+        input.type = "text";
+        icon.textContent = "🙈";
+      } else {
+        input.type = "password";
+        icon.textContent = "👁️";
+      }
+    }
+
+    function toggleMode() {
+      document.body.classList.toggle("dark-mode");
+      const icon = document.querySelector(".mode-toggle");
+      icon.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+    }
+  </script>
+</body>
+</html>

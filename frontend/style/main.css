@@ -1,0 +1,481 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Root Theme Variables */
+:root {
+  --primary-color: #28a745;
+  --primary-dark: #1e7e34;
+  --background-light: #f4fdf6;
+  --background-dark: #1a1a1a;
+  --text-light: #333;
+  --text-dark: #eee;
+  --header-bg-light: #e6fff0;
+  --header-bg-dark: #121212;
+  --alert-red: #e10032;
+}
+
+/* Base Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-light);
+  transition: all 0.3s ease-in-out;
+}
+
+body.dark-mode {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
+/* Header and Navbar */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+}
+
+.logo {
+  height: 200px;
+  width: 150px;
+  margin-right: 10px;
+  animation: pulse 2s infinite;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .navbar {
+  background-color: var(--header-bg-dark);
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--primary-dark);
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #f4f4f4;
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.hero-buttons button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.hero-buttons button:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Call to Action */
+.cta-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: var(--alert-red);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cta-button:hover {
+  background-color: #c00028;
+}
+
+/* Callback Form */
+.callback-form {
+  background-color: #007bff;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.callback-form h3 {
+  margin-bottom: 15px;
+}
+
+.callback-form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.callback-form input {
+  padding: 10px;
+  width: 80%;
+  max-width: 400px;
+  border: none;
+  border-radius: 5px;
+}
+
+.callback-form button {
+  padding: 10px 20px;
+  background-color: var(--alert-red);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.callback-form button:hover {
+  background-color: #c00028;
+}
+
+/* Alert Banner */
+.alert-banner {
+  text-align: center;
+  background-color: var(--alert-red);
+  color: white;
+  padding: 0.8rem;
+  font-weight: 600;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Heartbeat Monitor */
+.heartbeat-monitor {
+  width: 100%;
+  height: 100px;
+  background: #000;
+  margin-top: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.heartbeat-line {
+  width: 200%;
+  height: 100%;
+  background: url('../assets/heartbeat.svg') repeat-x;
+  animation: heartbeatScroll 4s linear infinite;
+}
+
+@keyframes heartbeatScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Content Sections */
+.about, .team, .contact {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.about h3, .team h3, .contact h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+}
+
+body.dark-mode footer {
+  background-color: #1f1f1f;
+  color: #aaa;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .features-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chatbot, .emergency, .videocall {
+    max-width: 90%;
+  }
+
+  .hero h2 {
+    font-size: 1.8rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-brand img {
+    max-height: 40px;
+  }
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4caf50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: none;
+}
+
+.modal.active {
+  display: block;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+.modal-overlay.active {
+  display: block;
+}
+
+/* Extra Sections */
+.chatbot, .emergency, .videocall {
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.chatbot h3, .emergency h3, .videocall h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.emergency button, .videocall button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #e10032;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.emergency button:hover, .videocall button:hover {
+  background-color: #c00028;
+}
+
+/* Features Section */
+.features {
+  padding: 20px;
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
+.features-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 150px;
+}
+
+.feature-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+/* SOS Button */
+.sos-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(to right, #f8fdfa, #eafaf0);
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: background 0.3s;
+  z-index: 1000;
+}
+
+.sos-btn:hover {
+  background-color: #b02a37;
+  cursor: pointer;
+}
+
+/* Auth Buttons */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-buttons .login-btn {
+  padding: 8px 18px;
+  font-size: 15px;
+  border: 2px solid #00a859;
+  background-color: transparent;
+  color: #00a859;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.auth-buttons .login-btn:hover {
+  background-color: #00a859;
+  color: white;
+}
+
+.auth-buttons .signup-btn {
+  padding: 8px 18px;
+  font-size: 15px;
+  background-color: #00a859;
+  color: white;
+  border: 2px solid #00a859;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.auth-buttons .signup-btn:hover {
+  background-color: #008f4f;
+  border-color: #008f4f;
+}

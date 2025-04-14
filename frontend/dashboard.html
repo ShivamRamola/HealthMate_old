@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HealthMate Dashboard</title>
+  <style>
+    :root {
+      --bg-light: #f5f9ff;
+      --bg-dark: #1e1e2f;
+      --text-light: #222;
+      --text-dark: #fff;
+      --card-light: #ffffff;
+      --card-dark: #2a2a3d;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: all 0.4s ease;
+    }
+
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .navbar {
+      background-color: #0077b6;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+    }
+
+    .mode-toggle {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    .dashboard-header {
+      text-align: center;
+      padding: 2rem;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .dashboard-header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    .doctor-section {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .doctor-card {
+      display: flex;
+      gap: 1.5rem;
+      background: var(--card-light);
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+      padding: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    body.dark-mode .doctor-card {
+      background: var(--card-dark);
+    }
+
+    .doctor-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .doctor-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .doctor-info h3 {
+      margin: 0 0 0.2rem;
+    }
+
+    .doctor-info p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: gray;
+    }
+
+    footer {
+      background: #0077b6;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 600px) {
+      .doctor-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .doctor-info {
+        align-items: center;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">🩺 HealthMate</div>
+    <div class="nav-links">
+      <a href="shop.html">Shop</a>
+      <a href="profile.html">Profile</a>
+      <a href="auth.html">Logout</a>
+      <button class="mode-toggle" onclick="toggleMode()">🌙</button>
+    </div>
+  </div>
+
+  <!-- Welcome Section -->
+  <div class="dashboard-header">
+    <h1>Welcome to your Dashboard</h1>
+    <p>Find the best doctors at your fingertips</p>
+  </div>
+
+  <!-- Doctor Sections -->
+  <div class="doctor-section">
+    <div class="section-title">Neurologists</div>
+    <div class="doctor-card">
+      <img src="images/doctor1.jpg" class="doctor-img" alt="Doctor">
+      <div class="doctor-info">
+        <h3>Dr. Aisha Khan</h3>
+        <p>MBBS, Neurology Specialist</p>
+      </div>
+    </div>
+
+    <div class="section-title">Physicians</div>
+    <div class="doctor-card">
+      <img src="images/doctor2.jpg" class="doctor-img" alt="Doctor">
+      <div class="doctor-info">
+        <h3>Dr. Rohan Mehta</h3>
+        <p>MBBS, MD – General Medicine</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 HealthMate. All rights reserved.
+  </footer>
+
+  <!-- Dark Mode Script -->
+  <script>
+    function toggleMode() {
+      document.body.classList.toggle("dark-mode");
+      const icon = document.querySelector(".mode-toggle");
+      icon.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+    }
+  </script>
+</body>
+</html>

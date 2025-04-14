@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Medicine | HealthMate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f4f8;
+      padding: 2rem;
+    }
+
+    .order-form {
+      background: white;
+      max-width: 500px;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .order-form h2 {
+      text-align: center;
+    }
+
+    .order-form label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    .order-form input, .order-form textarea {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .order-form button {
+      margin-top: 1.5rem;
+      width: 100%;
+      background: #2196f3;
+      color: white;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .order-form button:hover {
+      background: #1976d2;
+    }
+  </style>
+</head>
+<body>
+
+  <form class="order-form">
+    <h2>Order Medicine</h2>
+    
+    <label>Medicine Name</label>
+    <input type="text" name="medicine" id="medicineInput" readonly>
+
+    <label>Your Name</label>
+    <input type="text" name="name" required>
+
+    <label>Address</label>
+    <textarea name="address" rows="3" required></textarea>
+
+    <label>Quantity</label>
+    <input type="number" name="quantity" min="1" value="1" required>
+
+    <button type="submit">Place Order</button>
+  </form>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const med = urlParams.get('medicine');
+    if (med) document.getElementById('medicineInput').value = med;
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup | HealthMate</title>
+  <!-- Firebase CDN -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAg50rti6abDSWQDQ3_pycvTfsZAl-kpF0",
+      authDomain: "healthmate-c8c57.firebaseapp.com",
+      projectId: "healthmate-c8c57",
+      storageBucket: "healthmate-c8c57.firebasestorage.app",
+      messagingSenderId: "598997529149",
+      appId: "1:598997529149:web:9dec330ff23ca99c86b054"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        alert('Signup successful!');
+        window.location.href = "dashboard.html";  // Redirect to dashboard after successful signup
+      } catch (error) {
+        alert(`Error: ${error.message}`);
+      }
+    });
+
+    document.getElementById('google-signup').addEventListener('click', async () => {
+      const provider = new GoogleAuthProvider();
+      
+      try {
+        const result = await signInWithPopup(auth, provider);
+        alert('Signed up with Google!');
+        window.location.href = "dashboard.html";  // Redirect to dashboard after Google signup
+      } catch (error) {
+        alert(`Error: ${error.message}`);
+      }
+    });
+  </script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f2f5f9;
+    }
+
+    .navbar {
+      background-color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
+
+    .logo img {
+      width: 40px;
+      margin-right: 10px;
+    }
+
+    .navbar-nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar-nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .navbar-nav ul li a:hover {
+      color: #1b5fd9;
+    }
+
+    .main-content {
+      min-height: calc(100vh - 100px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 15px;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 42px 32px;
+      border-radius: 18px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .form-container h2 {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      color: #222;
+    }
+
+    .form-container input {
+      width: 100%;
+      padding: 6px 10px;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+      height: 36px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-container input:focus {
+      border-color: #1b5fd9;
+      outline: none;
+    }
+
+    .form-container button {
+      display: block;
+      width: 100%;
+      padding: 11px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 14px;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .form-container .signup-btn {
+      background-color: #1b5fd9;
+      color: white;
+      margin-top: 5px;
+    }
+
+    .form-container .signup-btn:hover {
+      background-color: #154ac4;
+    }
+
+    .form-container .google-btn {
+      background-color: #db4437;
+      color: white;
+      margin-top: 10px;
+    }
+
+    .form-container .google-btn:hover {
+      background-color: #c23321;
+    }
+
+    .form-container p {
+      margin-top: 20px;
+      font-size: 0.95rem;
+    }
+
+    .form-container a {
+      color: #1b5fd9;
+      text-decoration: none;
+    }
+
+    .form-container a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      color: #555;
+      background-color: #fff;
+      border-top: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo"> HealthMate
+    </div>
+    <div class="navbar-nav">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="#">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="form-container">
+      <h2>Create Your HealthMate Account</h2>
+      <form id="signup-form">
+        <input type="email" id="signup-email" placeholder="Enter your email" required>
+        <input type="password" id="signup-password" placeholder="Create a password" required>
+        <button type="submit" class="signup-btn">Sign Up</button>
+        <button type="button" class="google-btn" id="google-signup">Sign Up with Google</button>
+      </form>
+      <p>Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 HealthMate. All rights reserved.
+  </footer>
+</body>
+</html>

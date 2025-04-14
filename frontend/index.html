@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthMate - Emergency Medical Help</title>
+  <link rel="stylesheet" href="style/main.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <header class="navbar">
+    
+    <div class="logo-section">
+        <img src="assets/logo.png" alt="HealthMate Logo" class="img-fluid" style="max-height: 100px;" />
+
+      <div class="brand">
+        <h1>HealthMate</h1>
+        <p>Your Lifeline in Critical Moments</p>
+      </div>
+    </div>
+    <nav class="nav-links">
+      <a href="/frontend/about.html">About</a>
+      <a href="/frontend/services.html">Services</a>
+      <a href="">Nearby Hospital</a>
+      <a href="">AI Chatbot</a>
+      <a href="/frontend/contact.html">Contact Us</a>
+      <div class="auth-buttons">
+        <button class="login-btn" onclick="window.location.href='auth.html'">Login</button>
+        <button class="signup-btn" onclick="window.location.href='auth.html'">Sign Up</button>
+      </div>
+      
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Swift Rescue, Your Lifeline in Critical Moments</h2>
+    <p>Ambulance Services, Anytime, Anywhere</p>
+    <div class="hero-buttons">
+      <button class="cta-button">Download HealthMate</button>
+      <button class="cta-button">Call: 8008280020</button>
+    </div>
+  </section>
+
+  <section class="callback-form">
+    <h3>Get a Call Back in Just 5 Seconds</h3>
+    <form>
+      <input type="text" placeholder="Full Name" required>
+      <input type="tel" placeholder="Phone Number" required>
+      <label>
+        <input type="checkbox" required>
+        By continuing, you agree to our T&C and Privacy Policies
+      </label>
+      <button type="submit">Book Ambulance</button>
+    </form>
+  </section>
+
+  <section id="chatbot" class="chatbot">
+    <h3>Chatbot for Symptoms</h3>
+    <div id="chatbot-container"></div>
+    <input type="text" id="userInput" placeholder="Ask your AI..." />
+<button onclick="askAI()">Send</button>
+<p id="responseArea"></p>
+
+<script src="js/main.js"></script>
+
+    <script src="js/chatbot.js"></script>
+  </section>
+
+  <section id="emergency" class="emergency">
+    <h3>Emergency SOS</h3>
+    <button id="sos-button">Activate SOS</button>
+    <script src="js/emergency.js"></script>
+  </section>
+
+  <section id="videocall" class="videocall">
+    <h3>Video Call with Doctor</h3>
+    <button id="start-call">Start Video Call</button>
+    <script src="js/videocall.js"></script>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 HealthMate. All rights reserved.</p>
+  </footer>
+  <button class="sos-btn" onclick="triggerSOS()">
+    <i class="bi bi-telephone-fill me-2"></i> SOS
+  </button>
+  
+  <script>
+    function triggerSOS() {
+      alert("🚨 SOS Alert Sent!\nOur emergency team will contact you shortly.");
+    }
+  </script>
+</body>
+</html>
