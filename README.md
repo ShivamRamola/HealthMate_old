@@ -1,4 +1,4 @@
-# 🚑 Project Title: HealthMate
+# 🚑 Project Title: HealthMate 🩺
 
 ## 🩺 Project Description
 **HealthMate** is a smart healthcare web application built to tackle real-world medical challenges, especially in underserved rural regions. The platform bridges the gap between rural and urban healthcare by offering AI-powered medical support, online medicine purchases, and emergency assistance — all in one place.
